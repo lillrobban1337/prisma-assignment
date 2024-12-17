@@ -21,11 +21,11 @@ import { prisma } from "./lib/prisma";
 //     year: 1999,
 //   },
 // });
+//  console.log(`Movie ${title} added successfully!`);
 // } catch (error) {
 //    console.error("An error occurred:", error);
 //    console.log("Please try again.");
 //  }
-//  console.log(`Movie ${title} added successfully!`);
 
 const input = PromptSync();
 
