@@ -14,12 +14,18 @@ import PromptSync from "prompt-sync";
 import { prisma } from "./lib/prisma";
 
 // Example usage of prisma client
+// try {
 // await prisma.movie.create({
 //   data: {
 //     title: "The Matrix",
 //     year: 1999,
 //   },
 // });
+// } catch (error) {
+//    console.error("An error occurred:", error);
+//    console.log("Please try again.");
+//  }
+//  console.log(`Movie ${title} added successfully!`);
 
 const input = PromptSync();
 
