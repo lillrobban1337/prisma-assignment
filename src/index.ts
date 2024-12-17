@@ -30,6 +30,40 @@ import { prisma } from "./lib/prisma";
 const input = PromptSync();
 
 async function addMovie() {
+  const newMovie = input("Enter the name of the Movie: ");
+  const year = parseInt(input("Enter the relase year: "));
+  const createdMovie = await prisma.movie.create({
+    data: { title: newMovie, year },
+  });
+  while (true) {
+    const genreName = input("Enter the movie genre: ");
+    const genreExists = await prisma.genre.findFirst({
+      where: { name: genreName },
+    });
+    if (!genreExists) {
+      await prisma.genre.create({
+        data: {
+          name: genreName,
+          movies: {
+            connect: { id: createdMovie.id },
+          },
+        },
+      });
+    } else {
+      await prisma.genre.update({
+        where: { id: genreExists?.id },
+        data: {
+          movies: {
+            connect: { id: createdMovie.id },
+          },
+        },
+      });
+    }
+    const userInput = input("Do you want to add another genre(y/n): ");
+    if (userInput === "n") {
+      break;
+    }
+  }
   // Expected:
   // 1. Prompt the user for movie title, year.
   // 2. Use Prisma client to create a new movie with the provided details.
