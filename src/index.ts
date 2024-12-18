@@ -62,6 +62,19 @@ async function deleteMovie() {
 }
 
 async function listMovies() {
+  const movie = await prisma.movie.findUniqueOrThrow({
+    where: {
+      id: 1,
+    },
+    include: {
+      genres: true,
+    },
+  });
+  console.log(movie?.title);
+  for (let genre of movie.genres) {
+    console.log(genre.name);
+  }
+
   // Expected:
   // 1. Use Prisma client to fetch all movies.
   //    Reference: https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#findmany
